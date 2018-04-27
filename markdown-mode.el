@@ -3025,7 +3025,7 @@ When FACELESS is non-nil, do not return matches where faces have been applied."
 
 (defun markdown-match-italic (last)
   "Match inline italics from the point to LAST."
-  (let ((regex (if (memq major-mode '(gfm-mode gfm-view-mode))
+  (let ((regex (if (derived-mode-p 'gfm-mode)
                    markdown-regex-gfm-italic markdown-regex-italic)))
     (when (markdown-match-inline-generic regex last)
       (let ((begin (match-beginning 1))
@@ -7807,7 +7807,7 @@ in parent directories if
 `markdown-wiki-link-search-parent-directories' is non-nil."
   (let* ((basename (markdown-replace-regexp-in-string
                     "[[:space:]\n]" markdown-link-space-sub-char name))
-         (basename (if (memq major-mode '(gfm-mode gfm-view-mode))
+         (basename (if (derived-mode-p 'gfm-mode)
                        (concat (upcase (substring basename 0 1))
                                (downcase (substring basename 1 nil)))
                      basename))
